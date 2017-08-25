@@ -23,12 +23,6 @@ var BoardView = React.createClass({
     return {tilt} // ES6 shorthand for {opacities: opacities}
   },
 
-  render() {
-    return <View style={styles.container}>
-             {this.renderTiles()}
-           </View>
-  },
-
   renderTiles() {
     var result = []
     for (var row = 0; row < SIZE; row++) {
@@ -37,7 +31,7 @@ var BoardView = React.createClass({
         var letter = String.fromCharCode(65 + id)
         var tilt = this.state.tilt[id].interpolate({
           inputRange: [0, 1],
-          outputRange: ['0deg', '-30deg']
+          outputRange: ['0deg', '-60deg']
         })
         var style = {
           left: col * CELL_SIZE + CELL_PADDING,
@@ -67,6 +61,12 @@ var BoardView = React.createClass({
       duration: 250, // milliseconds
       easing: Easing.guad
     }).start()
+  },
+
+  render() {
+    return <View style={styles.container}>
+             {this.renderTiles()}
+           </View>
   },
 })
 

@@ -4,6 +4,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 var BoardView = require('./boardView.js')
+var CountdownTimer = require('./countdownTimer.js')
 
 export default class App extends React.Component {
 
@@ -16,8 +17,13 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-               <BoardView/>
-             </View>
+        <View style={styles.top}>
+          <CountdownTimer/>
+        </View>
+        <View style={styles.container}>
+          <BoardView/>
+        </View>
+      </View>
     )
   }
 }
@@ -25,8 +31,13 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#644B62',
   },
+  top: {
+    flex: 1,
+  },
+  bottom: {
+    flex: 2,
+  }
 })
