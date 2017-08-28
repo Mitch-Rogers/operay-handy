@@ -13,54 +13,26 @@ var BORDER_RADIUS = CELL_PADDING * 2
 var TILE_SIZE = CELL_SIZE - CELL_PADDING * 2
 var LETTER_SIZE = Math.floor(TILE_SIZE * .75)
 
-var BoardView = React.createClass({
-
-  getInitialState() { // New method
-    var tilt = new Array(SIZE * SIZE)
-    for (var i = 0; i < tilt.length; i++) {
-      tilt[i] = new Animated.Value(0)
-    }
-    return {tilt} // ES6 shorthand for {opacities: opacities}
-  },
+var WordView = React.createClass({
 
   renderTiles() {
     var result = []
-    for (var row = 0; row < SIZE; row++) {
       for (var col = 0; col < SIZE; col++) {
-        var id = row * SIZE + col
+        var id = col
         var letter = String.fromCharCode(65 + id)
-        var tilt = this.state.tilt[id].interpolate({
-          inputRange: [0, 1],
-          outputRange: ['0deg', '-60deg']
-        })
         var style = {
           left: col * CELL_SIZE + CELL_PADDING,
-          top: row * CELL_SIZE + CELL_PADDING,
-          transform: [{perspective: CELL_SIZE * 8},
-                      {rotateX: tilt}]
         }
         result.push(this.renderTile(id, style, letter))
-      }
     }
     return result
   },
 
   renderTile(id, style, letter) {
     //      v- New
-    return <Animated.View key={id} style={[styles.tile, style]}
-               onStartShouldSetResponder={() => this.clickTile(id)}>
+    return <Animated.View key={id} style={[styles.tile, style]}>
              <Text style={styles.letter}>{letter}</Text>
            </Animated.View>
-  },
-
-  clickTile(id) {
-    var tilt = this.state.tilt[id]
-    tilt.setValue(1)
-    Animated.timing(tilt, {
-      toValue: 0, // fully opaque
-      duration: 250, // milliseconds
-      easing: Easing.guad
-    }).start()
   },
 
   render() {
@@ -75,6 +47,7 @@ var styles = StyleSheet.create({
     width: CELL_SIZE * SIZE,
     height: CELL_SIZE * SIZE,
     backgroundColor: 'transparent',
+    opacity: .3,
   },
   tile: {
     position: 'absolute',
@@ -92,4 +65,4 @@ var styles = StyleSheet.create({
   },
 })
 
-module.exports = BoardView
+module.exports = WordView
