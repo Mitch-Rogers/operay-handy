@@ -3,8 +3,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-var BoardView = require('./boardView.js')
 var WordView = require('./word.js')
+var BoardView = require('./boardView.js')
 var CountdownTimer = require('./countdownTimer.js')
 
 export default class App extends React.Component {

@@ -4,6 +4,8 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Animated, Easing } from 'react-native'
 import { font } from 'expo'
 
+var WordView = require('./word.js')
+
 var {width, height} = require('Dimensions').get('window')
 
 var SIZE = 4 // four-by-four grid
@@ -25,10 +27,16 @@ var BoardView = React.createClass({
 
   renderTiles() {
     var result = []
+    var randomLetters = [global.randomWord]
+    var max = 26
+    for (var i = randomLetters.length; i < 16; i ++) {
+      randomLetters += String.fromCharCode(65 + Math.floor(Math.random() * max))
+      max = max - 1
+    }
     for (var row = 0; row < SIZE; row++) {
       for (var col = 0; col < SIZE; col++) {
         var id = row * SIZE + col
-        var letter = String.fromCharCode(65 + id)
+        var letter = randomLetters[id]
         var tilt = this.state.tilt[id].interpolate({
           inputRange: [0, 1],
           outputRange: ['0deg', '-60deg']

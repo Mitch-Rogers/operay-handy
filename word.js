@@ -12,6 +12,8 @@ var CELL_PADDING = Math.floor(CELL_SIZE * .05) // 5% of the cell size
 var BORDER_RADIUS = CELL_PADDING * 2
 var TILE_SIZE = CELL_SIZE - CELL_PADDING * 2
 var LETTER_SIZE = Math.floor(TILE_SIZE * .75)
+var wordList = ['HERE', 'SHOW', 'BACK', 'TIME', 'DEAL', 'SHOP', 'HIDE', 'SHOE']
+global.randomWord = wordList[Math.floor(Math.random() * wordList.length)]
 
 var WordView = React.createClass({
 
@@ -19,7 +21,7 @@ var WordView = React.createClass({
     var result = []
       for (var col = 0; col < SIZE; col++) {
         var id = col
-        var letter = String.fromCharCode(65 + id)
+        var letter = global.randomWord[id]
         var style = {
           left: col * CELL_SIZE + CELL_PADDING,
         }
